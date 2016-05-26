@@ -1,0 +1,120 @@
+digraph BST {
+383 [label=383,color=black];
+}
+digraph BST {
+383 [label=383,color=black];
+383 -> 886;
+886 [label=886,color=black];
+}
+digraph BST {
+383 [label=383,color=black];
+383 -> 886;
+886 [label=886,color=black];
+886 -> 777 ;
+777 [label=777,color=black];
+}
+digraph BST {
+383 [label=383,color=black];
+383 -> 886;
+886 [label=886,color=black];
+886 -> 777 ;
+886 -> 915;
+915 [label=915,color=black];
+777 [label=777,color=black];
+}
+digraph BST {
+383 [label=383,color=black];
+383 -> 886;
+886 [label=886,color=black];
+886 -> 777 ;
+886 -> 915;
+915 [label=915,color=black];
+777 [label=777,color=black];
+777 -> 793;
+793 [label=793,color=black];
+}
+digraph BST {
+383 [label=383,color=black];
+383 -> 335 ;
+383 -> 886;
+886 [label=886,color=black];
+886 -> 777 ;
+886 -> 915;
+915 [label=915,color=black];
+777 [label=777,color=black];
+777 -> 793;
+793 [label=793,color=black];
+335 [label=335,color=black];
+}
+digraph BST {
+383 [label=383,color=black];
+383 -> 335 ;
+383 -> 886;
+886 [label=886,color=black];
+886 -> 777 ;
+886 -> 915;
+915 [label=915,color=black];
+777 [label=777,color=black];
+777 -> 386 ;
+777 -> 793;
+793 [label=793,color=black];
+386 [label=386,color=black];
+335 [label=335,color=black];
+}
+digraph BST {
+383 [label=383,color=black];
+383 -> 335 ;
+383 -> 886;
+886 [label=886,color=black];
+886 -> 777 ;
+886 -> 915;
+915 [label=915,color=black];
+777 [label=777,color=black];
+777 -> 386 ;
+777 -> 793;
+793 [label=793,color=black];
+386 [label=386,color=black];
+386 -> 492;
+492 [label=492,color=black];
+335 [label=335,color=black];
+}
+digraph BST {
+383 [label=383,color=black];
+383 -> 335 ;
+383 -> 886;
+886 [label=886,color=black];
+886 -> 777 ;
+886 -> 915;
+915 [label=915,color=black];
+777 [label=777,color=black];
+777 -> 386 ;
+777 -> 793;
+793 [label=793,color=black];
+386 [label=386,color=black];
+386 -> 492;
+492 [label=492,color=black];
+492 -> 649;
+649 [label=649,color=black];
+335 [label=335,color=black];
+}
+digraph BST {
+383 [label=383,color=black];
+383 -> 335 ;
+383 -> 886;
+886 [label=886,color=black];
+886 -> 777 ;
+886 -> 915;
+915 [label=915,color=black];
+777 [label=777,color=black];
+777 -> 386 ;
+777 -> 793;
+793 [label=793,color=black];
+386 [label=386,color=black];
+386 -> 492;
+492 [label=492,color=black];
+492 -> 421 ;
+492 -> 649;
+649 [label=649,color=black];
+421 [label=421,color=black];
+335 [label=335,color=black];
+}
