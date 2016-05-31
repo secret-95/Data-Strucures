@@ -1,0 +1,149 @@
+#include <stdio.h>
+#include <stdlib.h>
+//-----------------------------------
+struct node
+{
+    int k[3];
+    struct node *child[4];
+    int n;
+    int leaf;
+};
+//------------------------------------
+struct node *  newnode()
+{
+    struct node *x = malloc(sizeof(struct node *));
+    x->n = 0;
+    x->leaf = 1;
+    return x;
+}
+void split(struct node *x, int i)
+{
+    struct node * temp = x->child[i];
+    struct node * temp2 = newnode();
+
+    for (int j = x->n; j > i; j--)
+    {
+        x->child[j+1] = x->child[j];
+        x->k[j] = x->k[j-1];
+    }
+    x->k[i] = temp->k[1];
+    x->child[i+1] = temp2;
+    x->n++;
+    if (temp->leaf == 1)
+    {
+        temp2->leaf = 1;
+
+        for (int j = 0; j < 1; j++)
+        {
+            temp2->k[j] = temp->k[j + 2];
+            temp2->n++;
+        }
+        temp->n = 1;
+    } else
+    {
+        temp2->leaf = 0;
+
+        for (int j = 0; j <1; j++)
+        {
+            temp2->k[j] = temp->k[j + 2];
+            temp2->child[j] = temp->child[j + 2];
+            temp2->n++;
+        }
+        temp2->child[2] = temp->child[3];
+        temp->n = 1;
+
+    }
+}
+//--------------------------------------
+struct node* insert(struct node **root, int value)
+{
+    struct node * r = *root;
+    if (r->n == 3)
+    {
+        struct node *temp = newnode();
+        temp->child[0] = r;
+        temp->leaf = 0;
+        *root= temp;
+        split(temp,0);
+        return insert1(temp, value);
+    } else 
+    {
+        return insert1(r,value);
+    }
+}
+//------------------------------------------
+//-----------------------------------
+struct node* insert1(struct node *x, int value)
+{
+    int i = 0;
+    while ( i < x->n && value > x->k[i])
+        i++;
+    if (x->leaf==1)
+    {
+        int j;
+        for (j = x->n; j > i; j--)
+        {
+            x->k[j] = x->k[j-1];
+        }
+        x->k[j] = value;
+        x->n++;
+        return x;
+    }
+    else
+    {
+        if (x->child[i]->n == 3)
+        {
+
+            split(x, i);
+            if (value > x->k[i])
+            {
+                i++;
+            }
+        }
+        return insert1(x->child[i], value);
+    }
+}
+//------------------------------------
+
+void display(struct node * x)
+{
+
+    int i;
+    for (i = 0; i < x->n - 1; i++)
+    {
+        printf("%d ",x->k[i]);
+    }
+    printf("%d\n",x->k[i]);
+}
+//----------------------------------------
+int main()
+{
+    int ch;
+    int value;
+    struct node *  r = newnode();
+    struct node * * root= &r;
+    while(1)
+    {
+        printf("1.Insert\n2.exit\n\n");
+        scanf("%d",&ch);
+        switch(ch)
+        {
+        case 1:
+            printf("Enter the value of the node\n");
+            scanf("%d", &value);
+            display(insert(root,value));
+	    printf("ROOT=\t");
+	    display(*root);
+            break;
+        case 2:
+            exit(0);
+        default:
+            printf("Enter proper choice\n");
+            break;
+        }
+
+    }
+    return 0;
+}
+//------------------------------------------------
+

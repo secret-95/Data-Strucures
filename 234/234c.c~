@@ -1,0 +1,160 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct nodes
+ {
+    int keys[3];
+    struct nodes *children[4];
+    int n;
+    int leaf;
+} Node;
+
+Node* insert(Node**, int);
+Node* insertnonfull(Node*, int);
+Node* newnode();
+void freetree(Node*);
+void printNode(Node*);
+void splitChild(Node*, int);
+
+int main()
+{
+    int ch;
+    int value;
+    Node* r = newnode();
+    Node** root= &r;
+    while(1)
+    {
+        printf("1.Insert\n2.exit\n\n");
+        scanf("%d",&ch);
+        switch(ch)
+        {
+        case 1:
+		printf("Enter the value of the node\n");
+		scanf("%d", &value);
+            printNode(insert(root,value));
+            break;
+        case 2:
+            exit(0);
+        default:
+            printf("Enter proper choice\n");
+            break;
+        }
+
+    }
+    return 0;
+}
+
+void freetree(Node* x) 
+{
+    if (!x->leaf) 
+{
+        for (int i = 0; i < x->n; i++)
+{
+            freetree(x->children[i]);
+        }
+    }
+    free(x);
+}
+
+Node* newnode()
+ {
+    Node* x = malloc(sizeof(Node));
+    x->n = 0;
+    x->leaf = 1;
+    return x;
+}
+
+Node* insert(Node** root, int value) 
+{
+    Node* r = *root;
+    if (r->n == 3) 
+{
+        Node* a = newnode();
+        a->children[0] = r;
+        a->leaf = 0;
+        *root= a;
+        splitChild(a,0);
+        return insertnonfull(a, value);
+    } else {
+        return insertnonfull(r,value);
+    }
+}
+
+Node* insertnonfull(Node* x, int value) 
+{
+    int i = 0;
+    while ( i < x->n && value > x->keys[i])
+        i++;
+    if (x->leaf) {
+        int j;
+        for (j = x->n; j > i; j--) 
+{
+            x->keys[j] = x->keys[j-1];
+        }
+        x->keys[j] = value;
+        x->n++;
+        return x;
+    } else 
+{
+        if (x->children[i]->n == 3) 
+{
+            // node is full spliti2
+            splitChild(x, i);
+            if (value > x->keys[i]) 
+{
+                i++;
+            }
+        }
+        return insertnonfull(x->children[i], value);
+    }
+}
+
+void splitChild(Node* x, int i) 
+{
+    Node* a = x->children[i];
+    Node* b = newnode();
+
+    for (int j = x->n; j > i; j--)
+ {
+        x->children[j+1] = x->children[j];
+        x->keys[j] = x->keys[j-1];
+    }
+    x->keys[i] = a->keys[1];
+    x->children[i+1] = b;
+    x->n++;
+    if (a->leaf)
+ {
+        b->leaf = 1;
+        
+        for (int j = 0; j < 1; j++) 
+{
+            b->keys[j] = a->keys[j + 2];
+            b->n++;
+        }
+        a->n = 1;
+    } else 
+{
+        b->leaf = 0;
+        
+        for (int j = 0; j <1; j++)
+ {
+            b->keys[j] = a->keys[j + 2];
+            b->children[j] = a->children[j + 2];
+            b->n++;
+        }
+        b->children[2] = a->children[3];
+        a->n = 1;
+        
+    }
+}
+
+void printNode(Node* x)
+ {
+   
+    int i;
+    for (i = 0; i < x->n - 1; i++) 
+{
+        printf("%d ",x->keys[i]);
+    }
+    printf("%d\n",x->keys[i]);
+}
