@@ -13,6 +13,3 @@ node30[label=" 30  40 "];
 digraph 234 {
 node30[label=" 30  40  50 "];
 }
-digraph 234 {
-node50[label=" 50  60 "];
-}

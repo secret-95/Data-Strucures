@@ -114,17 +114,17 @@ void display(Node *x,FILE *outfile)
 	int i=1;
 			while(x->k[i]!='\0')
 			{			
-				fprintf (outputFile, %d ",x->k[i]);
+				fprintf (outputFile, " %d ",x->k[i]);
 				i++;			
 			}
 			fprintf (outputFile,"\"];\n");	
 			i=0;
 			while(x->child[i]!=NULL)
-				{							
-					fprintf (outputFile,"\" %d ->  \"%d ;\n",x->k[i], x->child[i]->n);
+				{			
+									
+					fprintf (outputFile, "\"node%d\":f%d -> \"node%d\":f%d;\n",x->k[i],0, x->child[i]->k[i],0);
 					i++;			
 				}
-        			
 			i=0;
 
         		while(x->child[i]!=NULL)
