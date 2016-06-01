@@ -1,7 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
+
 static int gName=0;
 FILE *outputFile;
+
+
 typedef struct nodes
 {
     int k[3];
@@ -9,7 +12,7 @@ typedef struct nodes
     int n;
     int leaf;
 } Node;
-//----------------------------------------
+
 Node* newnode()
 {
     Node* x = malloc(sizeof(Node));
@@ -18,7 +21,7 @@ Node* newnode()
     return x;
 }
 
-//--------------------------------------------
+
 void split(Node* x, int i)
 {
     Node* a = x->child[i];
@@ -57,7 +60,7 @@ void split(Node* x, int i)
 
     }
 }
-//---------------------------------------------
+
 Node* insert1(Node* x, int value)
 {
     int i = 0;
@@ -73,8 +76,7 @@ Node* insert1(Node* x, int value)
         x->k[j] = value;
         x->n++;
         return x;
-    }
-	 else
+    } else
     {
         if (x->child[i]->n == 3)
         {
@@ -105,112 +107,105 @@ Node* insert(Node** root, int value)
     }
 }
 
-//--------------------------------------------------
-void display(Node *root)
+
+void display(Node *x,FILE *outfile)
 {
+     	fprintf (outputFile, "node%d[label=\" %d ",x->k[0],x->k[0]);
+	int i=1;
+			while(x->k[i]!='\0')
+			{			
+				fprintf (outputFile, %d ",x->k[i]);
+				i++;			
+			}
+			fprintf (outputFile,"\"];\n");	
+			i=0;
+			while(x->child[i]!=NULL)
+				{							
+					fprintf (outputFile,"\" %d ->  \"%d ;\n",x->k[i], x->child[i]->n);
+					i++;			
+				}
+        			
+			i=0;
 
-    int i;
-     for (i = 0; i < root->n - 1; i++)
-       {
-           printf("%d ",root->k[i]);
-
-       }
-    for(i=0; i<root->n; i++)
-    {
-
-        if (root->k[0]!= 0)
+        		while(x->child[i]!=NULL)
+			{			
+				display (x->child[i], outputFile);
+				i++;			
+			}
+			
+			
+				
+				
+        		
+        	
+			
+    /*    int i;
+    //    printf("8====>%d",x->n);
+        for (i = 0; i < x->n - 1; i++)
         {
-            fprintf (outputFile, "%d [label=%d,color=black];\n",root->k[i], root->k[i]);
-
-            fprintf (outputFile, "%d -> %d ;\n", root->k[i], (root->child[0])->k[i]);
+            printf("%d ",x->k[i]);
         }
-
-
-        if (root->k[1] != 0)
-        {
-            fprintf (outputFile, "%d [label=%d,color=black];\n",root->k[i], root->k[i]);
-
-
-            fprintf (outputFile, "%d -> %d;\n", root->k[i], root->child[1]->k[i]);
-        }
-        if (root->k[2]!= 0)
-        {
-            fprintf (outputFile, "%d [label=%d,color=black];\n",root->k[i], root->k[i]);
-
-            fprintf (outputFile, "%d -> %d ;\n", root->k[i], (root->child[2])->k[i]);
-
-        }
-
-        if (root->k[3] != 0)
-        {
-            fprintf (outputFile, "%d [label=%d,color=black];\n",root->k[i], root->k[i]);
-
-            fprintf (outputFile, "%d -> %d;\n", root->k[i], root->child[3]->k[i]);
-        }
-
-    }
+        printf("%d\n",x->k[i]);*/
 }
-//-----------------------------------------------------------------
-    void dotDump(Node *root, FILE *outFile)
 
+void dotDump(Node *root, FILE *outFile)
+{
+    gName++;
+    fprintf (outFile, "digraph 234 {\n",gName);
+    display (root, outFile);
+    fprintf (outFile, "}\n");
+}
+
+int main()
+{
+    Node *n=NULL;
+    int ch;
+    FILE *pipe;
+    int value;
+    Node* r = newnode();
+    Node** root= &r;
+    outputFile = fopen ("234.dot", "w");
+    fclose (outputFile);
+
+    while(1)
     {
-
-        gName++;
-
-        fprintf (outFile, "digraph 234 {\n",gName);
-
-
-
-        display(root);
-        fprintf (outFile, "}\n");
-
-    }
-//------------------------------------------------------------------
-    int main()
-    {
-        int ch;
-        FILE *pipe;
-        int value;
-        Node* r = newnode();
-        Node** root= &r;
-        outputFile = fopen ("234.dot", "w");
-        fclose (outputFile);
-
-        while(1)
+        printf("1.Insert\n2.Display Dotty\n3.Exit\n");
+        scanf("%d",&ch);
+        switch(ch)
         {
-//        printf("1.Insert\n2.Display\n3.Exit\n");
-            scanf("%d",&ch);
-            switch(ch)
+        case 1:
+            printf("Enter the value of the node\n");
+            scanf("%d", &value);
+            /*8=====>*/   n=insert(root,value);
+            outputFile = fopen ("234.dot", "a");
+            if (outputFile != NULL)
             {
-            case 1:
-//            printf("Enter the value of the node\n");
-                scanf("%d", &value);
-                insert(root,value);
-                outputFile = fopen ("234.dot", "a");
-                if (outputFile != NULL)
-                {
-                    dotDump (root,  outputFile);
-                }
-                fclose (outputFile);
-                break;
-            case 2:
-                pipe=popen("dot -Tps 234.dot -o 234.ps","w");
-                pclose(pipe);
-                pipe=popen("evince 234.ps","r");
-                pclose(pipe);
-                break;
-
-            case 3:
-                exit(0);
-            default:
-                printf("Enter proper choice\n");
-                break;
+                dotDump (n,  outputFile);
             }
+            fclose (outputFile);
+            printf("Root--\t");
+            display(*root,NULL);
+            pipe=popen("dot -Tps 234.dot -o 234.ps","w");
+					pclose(pipe);	
+            break;
+        case 2:
+            pipe=popen("dot -Tps 234.dot -o 234.ps","w");
+            pclose(pipe);
+            pipe=popen("evince 234.ps","r");
+            pclose(pipe);
+            break;
 
+        case 3:
+            exit(0);
+        default:
+            printf("Enter proper choice\n");
+            break;
         }
 
-        return 0;
     }
 
-//--------------------------------------------------------------------
+    return 0;
+}
+
+
 
