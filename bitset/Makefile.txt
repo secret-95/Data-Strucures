@@ -1,0 +1,3 @@
+compile:
+	gcc -g final.c -lm
+	./a.out
