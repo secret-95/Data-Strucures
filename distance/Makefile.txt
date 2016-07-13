@@ -1,0 +1,4 @@
+compile:
+	gcc -g minimum_dis.c -lm
+	./a.out 
+
