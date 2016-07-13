@@ -1,0 +1,29 @@
+##########################################################################################
+
+BRIEFING:
+
+* PROGRAM THAT IMPLEMENTS THE 234 TREES
+
+BRANCHES:
+
+* THE FOLDER HAS NO BRANCHES.
+
+VERSIONS:
+
+* THE FILES "234'x'.c" ARE VARIOUS VERSIONS OR STAGES OF THE CODE.
+* "final.c" IS THE FINAL PROGRAM
+
+MAKEFILES:
+
+* EACH BRANCH HAS ITS OWN MAKEFILES THAT:
+ -> COMPILES THE CODE
+ -> RUNS THE CODE
+
+FILES ENCLOSED:
+
+* "generator.c" GENERATES THE INPUT AND REDIRECTS THEM TO THE "input.txt" FILE
+* "input.txt" HAS THE INPUTS TO THE MAIN PROGRAMS
+* "Makefile.txt" IS THE MAKEFILE THAT AUTOMATES THE EXECUTION OF THE PROGRAMS 
+* "234.dot" IS THE DOTDUMP FILE USED BY DOTTY FOR VISUALIZATION
+
+##########################################################################################

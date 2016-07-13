@@ -1,0 +1,6 @@
+compile:
+	clear
+	gcc -g generator.c 
+	./a.out > input
+	gcc -g final.c < input
+	./a.out
