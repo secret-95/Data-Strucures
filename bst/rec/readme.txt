@@ -1,0 +1,25 @@
+##########################################################################################
+
+BRIEFING:
+
+* PROGRAM THAT CONSTRUCTS A BINARY SEARCH TREE GIVEN ITS PRE-ORDER AND POST-ORDER 
+  TRAVERSALS
+
+BRANCHES:
+
+* THE FOLDER HAS 1 BRANCH- SOLVED USING RECURSION APPROACH.
+
+MAKEFILES:
+
+* EACH BRANCH HAS ITS OWN MAKEFILES THAT:
+ -> COMPILES THE CODE
+ -> RUNS THE CODE
+
+FILES ENCLOSED:
+
+* "input.txt" HAS THE INPUTS TO THE MAIN PROGRAMS
+* "output.txt" HAS THE OUTPUTS TO THE MAIN PROGRAMS
+* "master.txt" IS THE MASTER FILE THAT HAS THE EXPECTED OUTPUT
+* "Makefile.txt" IS THE MAKEFILE THAT AUTOMATES THE EXECUTION OF THE PROGRAMS 
+
+##########################################################################################
